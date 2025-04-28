@@ -2,21 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Stevebauman\Location\Facades\Location;
 use Illuminate\Support\Arr;
 
 class LandingController extends Controller
 {
-    public function index(Request $request, $locale = null){
+    /**
+     * @param Request $request
+     * @param $locale
+     * @return Factory|View|Application|\Illuminate\View\View|object
+     */
+    public function index(Request $request,string $locale = null){
         $locale = $locale ?? $this->getLocale($request);
         app()->setLocale($locale);
         return view('landing');
     }
 
-    private function getLocale(Request $request){
+    /**
+     * @param Request $request
+     * @return string
+     */
+    private function getLocale(Request $request): string
+    {
         $locationInfo = Location::get($this->getIP($request));
-        $countryCode = $locationInfo->isoCode;
+        $countryCode = $locationInfo->countryCode;
         $countryLocales = [
             'US' => 'en',
             'GB' => 'en',
@@ -30,6 +43,10 @@ class LandingController extends Controller
         return Arr::get($countryLocales,$countryCode,'en');
     }
 
+    /**
+     * @param Request $request
+     * @return string
+     */
     private function getIP(Request $request): string
     {
         $testIp = '143.92.128.0';

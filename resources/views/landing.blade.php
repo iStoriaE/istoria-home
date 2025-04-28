@@ -38,10 +38,10 @@
                 <x-logo />
                 <h1 class="text-lg font-bold">{{ __('header') }}</h1>
                 <div class="flex items-center justify-between">
-                    <h2 class="font-semibold text-gray-600">{{ __("iStoria Users' Reviews") }} (9568)</h2>
+                    <h2 class="font-semibold text-gray-600">{{ __("iStoria Users' Reviews") }} ({{ number_format(\App\Models\Review::query()->count())}})</h2>
                     <div
                         class="flex h-8 items-center gap-1 rounded-full border-2 border-amber-100 bg-amber-50 px-2 text-sm">
-                        <span class="font-bold rtl:mt-1.5">4.8</span>
+                        <span class="font-bold rtl:mt-1.5">{{ \App\Models\Review::query()->avg('rate') }}</span>
                         <x-star class="size-5 text-amber-400" />
                     </div>
                 </div>
@@ -50,16 +50,14 @@
 
             <div class="swiper">
                 <div class="swiper-wrapper">
-                    @foreach (range(1, 2) as $t)
+                    @php $reviews = \App\Models\Review::query()->limit(10)->get() @endphp
+                    @foreach ($reviews as $review)
                         <div class="swiper-slide px-4">
                             <div class="bg-light-gray rounded-2xl">
-                                <p class="flex-1 p-4 md:p-6">{{ __("review_{$t}_comment") }}</p>
+                                <p class="flex-1 p-4 md:p-6">{{ $review->comment }}</p>
                                 <div class="flex items-center justify-center gap-4 border-t-2 border-t-white p-2">
-                                    <label class="text-sm font-bold text-gray-500">{{ __("review_{$t}_name") }}</label>
-                                    @php
-                                        $stars = intval(__("review_{$t}_stars"));
-                                    @endphp
-                                    <x-rating :stars="$stars" />
+                                    <label class="text-sm font-bold text-gray-500">{{ $review->name }}</label>
+                                    <x-rating :stars="$review->rate" />
                                 </div>
                             </div>
                         </div>
