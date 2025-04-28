@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@theme {
+    /* --bg: 216, 48%, 98%;
+    --text-foreground: 204 44% 11%; */
+    --color-primary: #0077ff;
+    --color-light-gray: #f8f8f8;
+    --color-forground: #003269;
+}
+
+@layer base {
+    html {
+        color: var(--color-forground);
+        font-size: 16px;
+        font-optical-sizing: auto;
+        font-style: normal;
+        font-variation-settings: "wdth" 100;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-print-color-adjust: exact;
+    }
+
+    /* Use Noto Sans for all languages except for Arabic */
+    html:lang(en),
+    html:not([lang]) {
+        font-family: "Noto Sans", sans-serif;
+    }
+    html:lang(en) .font-semibold,
+    html:not([lang]) .font-semibold {
+        font-weight: 600;
+    }
+    html:lang(en) .font-bold,
+    html:not([lang]) .font-bold {
+        font-weight: 700;
+    }
+
+    /* Use iStoria for Arabic */
+    html:lang(ar) {
+        font-family: "iStoriaRegular", serif;
+    }
+    html:lang(ar) .font-semibold {
+        font-family: "iStoriaSemiBold", serif;
+    }
+    html:lang(ar) .font-bold {
+        font-family: "iStoriaBold", serif;
+    }
+}
+
+html.ar * {
+    line-height: normal !important;
+}
