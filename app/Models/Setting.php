@@ -11,6 +11,7 @@ class Setting extends Model
     ];
 
     public static function generalRating(): float{
-        return static::query()->where('key', 'general_rating')->pluck('value')->first();
+        $rating = static::query()->where('key', 'general_rating')->pluck('value')->firstOrFail();
+        return $rating[0];
     }
 }
