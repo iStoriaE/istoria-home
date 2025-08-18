@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ReviewResource;
+use App\Models\Review;
+use App\Models\Setting;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -19,7 +22,9 @@ class LandingController extends Controller
     public function index(Request $request,string $locale = null){
         $locale = $locale ?? $this->getLocale($request);
         app()->setLocale($locale);
-        return view('landing');
+        $reviews = ReviewResource::collection(Review::all());
+        $generalRating = Setting::generalRating();
+        return view('landing',compact('reviews', 'generalRating'));
     }
 
     /**
