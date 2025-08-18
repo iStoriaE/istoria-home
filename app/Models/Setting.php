@@ -1,0 +1,16 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Setting extends Model
+{
+    protected $casts = [
+        'value' => 'json'
+    ];
+
+    public static function generalRating(): float{
+        return static::query()->where('key', 'general_rating')->pluck('value')->first();
+    }
+}
