@@ -35,23 +35,21 @@ class LandingController extends Controller
     private function getLocale(Request $request): string
     {
         $preferredLanguage = $request->getPreferredLanguage(getAppLangNames());
+        return $preferredLanguage ?? 'en';
 
-        if($preferredLanguage)
-            return $preferredLanguage;
-
-        $locationInfo = Location::get($this->getIP($request));
-        $countryCode = $locationInfo->countryCode;
-        $countryLocales = [
-            'US' => 'en',
-            'GB' => 'en',
-            'FR' => 'en',
-            'DE' => 'en',
-            'AE' => 'ar',
-            'SA' => 'ar',
-            'EG' => 'ar',
-        ];
-
-        return Arr::get($countryLocales,$countryCode,'en');
+//        $locationInfo = Location::get($this->getIP($request));
+//        $countryCode = $locationInfo->countryCode;
+//        $countryLocales = [
+//            'US' => 'en',
+//            'GB' => 'en',
+//            'FR' => 'en',
+//            'DE' => 'en',
+//            'AE' => 'ar',
+//            'SA' => 'ar',
+//            'EG' => 'ar',
+//        ];
+//
+//        return Arr::get($countryLocales,$countryCode,'en');
     }
 
     /**
