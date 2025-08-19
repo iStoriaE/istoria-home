@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ReviewResource;
 use App\Models\Review;
 use App\Models\Setting;
+use Carbon\Traits\Localization;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -33,6 +34,11 @@ class LandingController extends Controller
      */
     private function getLocale(Request $request): string
     {
+        $preferredLanguage = $request->getPreferredLanguage(getAppLangNames());
+
+        if($preferredLanguage)
+            return $preferredLanguage;
+
         $locationInfo = Location::get($this->getIP($request));
         $countryCode = $locationInfo->countryCode;
         $countryLocales = [
