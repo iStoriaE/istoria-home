@@ -23,7 +23,7 @@ class LandingController extends Controller
     public function index(Request $request,string $locale = null){
         $locale = $locale ?? $this->getLocale($request);
         app()->setLocale($locale);
-        $reviews = ReviewResource::collection(Review::all());
+        $reviews = ReviewResource::collection(Review::all())->resolve($request);
         $generalRating = Setting::generalRating();
         return view('landing',compact('reviews', 'generalRating'));
     }

@@ -52,7 +52,7 @@
                 sizes="(max-width: 512px) 100vw, 512px">
             <div class="absolute bottom-0 h-2/3 w-full bg-gradient-to-t from-white via-white/80 to-transparent"></div>
         </div>
-        <div class="w-full space-y-6 pb-[120px] sm:pb-0">
+        <div class="w-full -mt-8 space-y-6 pb-20 sm:pb-0 z-20 relative">
             <div class="space-y-4 px-4">
                 <x-logo />
                 <h1 class="text-lg font-bold">{{ __('landing.h1') }}</h1>
@@ -72,10 +72,10 @@
                     @foreach ($reviews as $review)
                         <div class="swiper-slide px-4">
                             <div class="bg-light-gray rounded-2xl">
-                                <p class="flex-1 p-4 md:p-6">{{ $review->comment }}</p>
+                                <p class="flex-1 p-4 md:p-6">{{ $review['comment'] }}</p>
                                 <div class="flex items-center justify-center gap-4 border-t-2 border-t-white p-2">
-                                    <label class="text-sm font-bold text-gray-500">{{ $review->name }}</label>
-                                    <x-rating :stars="$review->rate" />
+                                    <label class="text-sm font-bold text-gray-500">{{ $review['name'] }}</label>
+                                    <x-rating :stars="$review['rate']" />
                                 </div>
                             </div>
                         </div>

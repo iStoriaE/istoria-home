@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class ReviewResource extends JsonResource
 {
@@ -22,7 +23,7 @@ class ReviewResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'rate' => $this->rate,
-            'comment' => Arr::get($translation,$lang),
+            'comment' => Str::substr(Arr::get($translation,$lang),0,120).'...',
         ];
     }
 }
