@@ -113,6 +113,16 @@ class DatabaseSeeder extends Seeder
              'created_at' => now(),
          ]);
 
+         Setting::query()->updateOrCreate(['key'=>'adjust_links'],[
+             'key' => 'adjust_links',
+             'title' => 'روابط التطبيق',
+             'description' => 'روابط التطبيق',
+             'value' => [
+                'default' => 'https://app.adjust.com/3ivmqnj',
+             ],
+             'created_at' => now(),
+         ]);
+
          $this->call([
             ReviewSeeder::class,
          ]);
