@@ -44,7 +44,7 @@
 </head>
 
 <body class="m-0 flex size-full min-h-screen flex-col items-center md:p-5 lg:justify-center">
-    <div class="container relative size-full md:max-w-lg">
+    <div class="container relative size-full md:max-w-lg z-10">
         <div class="min-h-1/3 relative overflow-hidden md:rounded-t-2xl">
             <img src="https://istoria.sa/wp-content/uploads/2023/08/1.jpg" class="absolute bottom-0 w-full"
                 alt="" decoding="async" fetchpriority="high"
@@ -52,7 +52,7 @@
                 sizes="(max-width: 512px) 100vw, 512px">
             <div class="absolute bottom-0 h-2/3 w-full bg-gradient-to-t from-white via-white/80 to-transparent"></div>
         </div>
-        <div class="absolute bottom-4 mt-6 w-full space-y-6">
+        <div class="w-full space-y-6 pb-[120px] sm:pb-0">
             <div class="space-y-4 px-4">
                 <x-logo />
                 <h1 class="text-lg font-bold">{{ __('landing.h1') }}</h1>
@@ -83,9 +83,9 @@
                 </div>
             </div>
 
-            <div class="px-4">
+            <div class="p-6 fixed sm:static bottom-0 w-full rounded-t-3xl shadow-[0_-1px_40px_0_rgba(0,0,0,0.10)] sm:shadow-none sm:p-4 z-50 bg-white">
                 <a href="{{  request()->has('camp') ? (settings('adjust_links', true)->where('key', request()->get('camp'))->first()['value']??'#') : (settings('adjust_links', true)->where('key', 'default')->first()['value']??'#') }}"
-                    class="bg-primary flex h-12 items-center justify-center rounded-xl border-none text-lg font-bold text-white">
+                   class="bg-primary flex h-14 items-center justify-center rounded-xl border-none text-lg font-bold text-white">
                     {{ __('landing.download') }}
                 </a>
             </div>
