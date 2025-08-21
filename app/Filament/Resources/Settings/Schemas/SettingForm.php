@@ -16,9 +16,21 @@ class SettingForm
             ->components([
                 Section::make()->schema(components: [
                     KeyValue::make('value')
+                        ->visible(fn($record): bool => $record->key !== 'adjust_links')
                         ->label('القيمة')
                         ->required()
                         ->columns(2),
+                        Repeater::make('value')
+                        ->visible(fn($record): bool => $record->key === 'adjust_links')
+                        ->label('روابط التطبيق')
+                        ->schema([
+                            TextInput::make('key')
+                                ->label('المفتاح')
+                                ->required(),
+                            TextInput::make('value')
+                                ->label('الرابط')
+                                ->required(),
+                        ])
                 ])
             ])->columns(1);
     }
