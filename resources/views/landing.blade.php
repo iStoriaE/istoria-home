@@ -43,16 +43,16 @@
     @endif
 </head>
 
-<body class="m-0 flex size-full min-h-screen flex-col items-center md:p-5 lg:justify-center">
-    <div class="container relative size-full md:max-w-lg z-10">
-        <div class="min-h-1/3 relative overflow-hidden md:rounded-t-2xl">
+<body class="m-0 flex size-full min-h-screen flex-col items-center sm:p-5 lg:justify-center">
+    <div class="container relative size-full sm:max-w-lg z-10">
+        <div class="min-h-1/3 relative overflow-hidden sm:rounded-t-2xl">
             <img src="https://istoria.sa/wp-content/uploads/2023/08/1.jpg" class="absolute bottom-0 w-full"
                 alt="" decoding="async" fetchpriority="high"
                 srcset="https://istoria.sa/wp-content/uploads/2023/08/1.jpg 512w, https://istoria.sa/wp-content/uploads/2023/08/1-298x300.jpg 298w, https://istoria.sa/wp-content/uploads/2023/08/1-150x150.jpg 150w"
                 sizes="(max-width: 512px) 100vw, 512px">
             <div class="absolute bottom-0 h-2/3 w-full bg-gradient-to-t from-white via-white/80 to-transparent"></div>
         </div>
-        <div class="w-full -mt-8 space-y-6 pb-20 sm:pb-0 z-20 relative">
+        <div class="w-full -mt-8 sm:pb-0 z-20 relative">
             <div class="space-y-4 px-4">
                 <x-logo />
                 <h1 class="text-lg font-bold">{{ __('landing.h1') }}</h1>
@@ -65,14 +65,12 @@
                     </div>
                 </div>
             </div>
-
-
-            <div class="swiper">
+            <div class="swiper my-6">
                 <div class="swiper-wrapper">
                     @foreach ($reviews as $review)
                         <div class="swiper-slide px-4">
                             <div class="bg-light-gray rounded-2xl">
-                                <p class="flex-1 p-4 md:p-6">{{ $review['comment'] }}</p>
+                                <p class="flex-1 p-4 sm:p-6">{{ $review['comment'] }}</p>
                                 <div class="flex items-center justify-center gap-4 border-t-2 border-t-white p-2">
                                     <label class="text-sm font-bold text-gray-500">{{ $review['name'] }}</label>
                                     <x-rating :stars="$review['rate']" />
@@ -83,7 +81,7 @@
                 </div>
             </div>
 
-            <div class="p-6 fixed sm:static bottom-0 w-full rounded-t-3xl shadow-[0_-1px_40px_0_rgba(0,0,0,0.10)] sm:shadow-none sm:p-4 z-50 bg-white">
+            <div class="p-6 fixed sm:static bottom-0 w-full rounded-t-3xl shadow-[0_-1px_40px_0_rgba(0,0,0,0.10)] sm:shadow-none sm:py-0 sm:px-4 z-50 bg-white">
                 <a href="{{  request()->has('camp') ? (settings('adjust_links', true)->where('key', request()->get('camp'))->first()['value']??'#') : (settings('adjust_links', true)->where('key', 'default')->first()['value']??'#') }}"
                    class="bg-primary flex h-14 items-center justify-center rounded-xl border-none text-lg font-bold text-white">
                     {{ __('landing.download') }}
