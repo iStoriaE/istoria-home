@@ -11,6 +11,8 @@ class Review extends Model
 
     public array $translatable = ['comment'];
 
+    protected $fillable = ['name', 'comment', 'rate'];
+
     protected $casts = [
         'comment' => 'array',
     ];
