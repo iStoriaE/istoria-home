@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Settings\Schemas;
 
+use Filament\Forms\Components\KeyValue;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
@@ -12,12 +14,12 @@ class SettingForm
     {
         return $schema
             ->components([
-                Section::make()->schema([
-                    TextInput::make('value')
-                        ->label(fn($record) => $record->title)
-                        ->required(),
+                Section::make()->schema(components: [
+                    KeyValue::make('value')
+                        ->label('القيمة')
+                        ->required()
+                        ->columns(2),
                 ])
-                ->columns(1)
-            ])->columns(2);
+            ])->columns(1);
     }
 }

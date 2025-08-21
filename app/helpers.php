@@ -2,6 +2,56 @@
 
 use Illuminate\Support\Facades\File;
 
+if(!function_exists('settings')){
+    /**
+     * Get the value of a setting by its key.
+     *
+     * @param string $key
+     * @param bool $collection
+     * @return mixed
+     */
+    function settings(string $key, bool $collection=false): mixed
+    {
+        $setting = \App\Models\Setting::query()->where('key', $key)->first();
+
+        if (!$setting) {
+            return $collection ? collect([]) : null;
+        }
+
+        $value = $setting->value;
+
+        if ($collection) {
+            return collect($value);
+        }
+
+        // If value is an array with language keys, get the current locale translation
+        if (is_array($value) && array_keys($value) !== range(0, count($value) - 1)) {
+            $currentLocale = app()->getLocale();
+            $translatedValue = $value[$currentLocale] ?? $value['en'] ?? $value['ar'] ?? null;
+
+            // For keywords, the value is already a comma-separated string, so return it directly
+            if ($key === 'seo_keywords') {
+                return $translatedValue;
+            }
+
+            // If the translated value is an array, convert to comma-separated string
+            if (is_array($translatedValue)) {
+                return implode(', ', $translatedValue);
+            }
+
+            return $translatedValue;
+        }
+
+        // If value is a simple array, return first element
+        if (is_array($value)) {
+            return $value[0] ?? null;
+        }
+
+        return $value;
+    }
+}
+
+
 if (!function_exists('isArabicText')) {
     function isArabicText(?string $text = ''): bool
     {
