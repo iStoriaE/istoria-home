@@ -6,7 +6,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>{{ settings('seo_title') }}</title>
+    <meta name="description" content="{{ settings('seo_description') }}">
+    <meta name="keywords" content="{{ settings('seo_keywords') }}">
+    <meta property="og:title" content="{{ settings('seo_title') }}">
+    <meta property="og:description" content="{{ settings('seo_description') }}">
+    <meta property="og:image" content="{{ settings('seo_image') }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="{{ app()->getLocale() }}">
+    <meta property="og:site_name" content="{{ settings('seo_title') }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="{{ settings('seo_title') }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ settings('seo_title') }}">
+    <meta name="twitter:description" content="{{ settings('seo_description') }}">
+    <meta name="twitter:image" content="{{ settings('seo_image') }}">
+    <meta name="twitter:url" content="{{ url()->current() }}">
+    <meta name="twitter:site" content="{{ settings('seo_title') }}">
+    <meta name="twitter:creator" content="{{ settings('seo_title') }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
