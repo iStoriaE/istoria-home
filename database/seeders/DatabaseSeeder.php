@@ -112,5 +112,9 @@ class DatabaseSeeder extends Seeder
              'value' => ["https://istoria.app/wp-content/uploads/2023/04/Basic-Colors-1-2.png"],
              'created_at' => now(),
          ]);
+
+         $this->call([
+            ReviewSeeder::class,
+         ]);
     }
 }
