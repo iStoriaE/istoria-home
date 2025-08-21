@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ReviewResource;
+use App\Models\Review;
+use App\Models\Setting;
+use Carbon\Traits\Localization;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -19,7 +23,9 @@ class LandingController extends Controller
     public function index(Request $request,string $locale = null){
         $locale = $locale ?? $this->getLocale($request);
         app()->setLocale($locale);
-        return view('landing');
+        $reviews = ReviewResource::collection(Review::all());
+        $generalRating = Setting::generalRating();
+        return view('landing',compact('reviews', 'generalRating'));
     }
 
     /**
@@ -28,19 +34,22 @@ class LandingController extends Controller
      */
     private function getLocale(Request $request): string
     {
-        $locationInfo = Location::get($this->getIP($request));
-        $countryCode = $locationInfo->countryCode;
-        $countryLocales = [
-            'US' => 'en',
-            'GB' => 'en',
-            'FR' => 'en',
-            'DE' => 'en',
-            'AE' => 'ar',
-            'SA' => 'ar',
-            'EG' => 'ar',
-        ];
+        $preferredLanguage = $request->getPreferredLanguage(getAppLangNames());
+        return $preferredLanguage ?? 'en';
 
-        return Arr::get($countryLocales,$countryCode,'en');
+//        $locationInfo = Location::get($this->getIP($request));
+//        $countryCode = $locationInfo->countryCode;
+//        $countryLocales = [
+//            'US' => 'en',
+//            'GB' => 'en',
+//            'FR' => 'en',
+//            'DE' => 'en',
+//            'AE' => 'ar',
+//            'SA' => 'ar',
+//            'EG' => 'ar',
+//        ];
+//
+//        return Arr::get($countryLocales,$countryCode,'en');
     }
 
     /**

@@ -36,12 +36,12 @@
         <div class="absolute bottom-4 mt-6 w-full space-y-6">
             <div class="space-y-4 px-4">
                 <x-logo />
-                <h1 class="text-lg font-bold">{{ __('header') }}</h1>
+                <h1 class="text-lg font-bold">{{ __('landing.h1') }}</h1>
                 <div class="flex items-center justify-between">
-                    <h2 class="font-semibold text-gray-600">{{ __("iStoria Users' Reviews") }} ({{ number_format(\App\Models\Review::query()->count())}})</h2>
+                    <h2 class="font-semibold text-gray-600">{{ __('landing.h2') }} ({{ number_format(\App\Models\Review::query()->count())}})</h2>
                     <div
                         class="flex h-8 items-center gap-1 rounded-full border-2 border-amber-100 bg-amber-50 px-2 text-sm">
-                        <span class="font-bold rtl:mt-1.5">{{ \App\Models\Review::query()->avg('rate') }}</span>
+                        <span class="font-bold rtl:mt-1.5">{{ $generalRating }}</span>
                         <x-star class="size-5 text-amber-400" />
                     </div>
                 </div>
@@ -50,7 +50,6 @@
 
             <div class="swiper">
                 <div class="swiper-wrapper">
-                    @php $reviews = \App\Models\Review::query()->limit(10)->get() @endphp
                     @foreach ($reviews as $review)
                         <div class="swiper-slide px-4">
                             <div class="bg-light-gray rounded-2xl">
@@ -68,7 +67,7 @@
             <div class="px-4">
                 <a href="https://app.adjust.com/3ivmqnj"
                     class="bg-primary flex h-12 items-center justify-center rounded-xl border-none text-lg font-bold text-white">
-                    {{ __('Download Now') }}
+                    {{ __('landing.download') }}
                 </a>
             </div>
         </div>

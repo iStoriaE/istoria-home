@@ -9,16 +9,9 @@ class Review extends Model
 {
     use HasTranslations;
 
-    public array $translatable = ['name', 'comment'];
-
-    protected $fillable = [
-        'name',
-        'comment',
-        'rate',
-    ];
+    public array $translatable = ['comment'];
 
     protected $casts = [
-        'name' => 'array',
         'comment' => 'array',
     ];
 }
