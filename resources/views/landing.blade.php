@@ -84,7 +84,7 @@
             </div>
 
             <div class="px-4">
-                <a href="https://app.adjust.com/3ivmqnj"
+                <a href="{{  request()->has('camp') ? (settings('adjust_links', true)->where('key', request()->get('camp'))->first()['value']??'#') : (settings('adjust_links', true)->where('key', 'default')->first()['value']??'#') }}"
                     class="bg-primary flex h-12 items-center justify-center rounded-xl border-none text-lg font-bold text-white">
                     {{ __('landing.download') }}
                 </a>
