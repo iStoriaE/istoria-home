@@ -36,7 +36,7 @@ class EditReview extends EditRecord
 
         collect($data)->each(function ($item,$key) use (&$mutatedData){
             if(Str::startsWith($key,'comment_'))
-                $mutatedData['comment'][$key] = Str::after($key,'comment_');
+                $mutatedData['comment'][Str::after($key,'comment_')] = $item;
             else
                 $mutatedData[$key] = $item;
         });
