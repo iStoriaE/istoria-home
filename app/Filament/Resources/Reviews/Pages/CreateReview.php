@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Reviews\Pages;
 
 use App\Filament\Resources\Reviews\ReviewResource;
 use App\Models\Review;
+use App\Services\GitHubWebhookService;
 use App\Services\OpenAiService;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\CreateRecord;
@@ -66,5 +67,14 @@ class CreateReview extends CreateRecord
         $data['comment'] = [...$translations,...$aiTranslations];
 
         return Review::query()->create($data);
+    }
+
+    protected function afterCreate(): void
+    {
+        if (GitHubWebhookService::triggerDeploy()) {
+            Notification::make()->title('تم بدء النشر!')->success()->send();
+        } else {
+            Notification::make()->title('فشل النشر')->danger()->send();
+        }
     }
 }

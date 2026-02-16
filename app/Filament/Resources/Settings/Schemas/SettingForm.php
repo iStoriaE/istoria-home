@@ -15,12 +15,31 @@ class SettingForm
         return $schema
             ->components([
                 Section::make()->schema(components: [
-                    KeyValue::make('value')
-                        ->visible(fn($record): bool => $record->key !== 'adjust_links')
+                    // general_rating: [5] → single numeric value
+                    TextInput::make('rating_value')
+                        ->visible(fn($record): bool => $record->key === 'general_rating')
+                        ->label('القيمة')
+                        ->numeric()
+                        ->minValue(0)
+                        ->maxValue(5)
+                        ->required(),
+
+                    // seo_image: ["url"] → single URL value
+                    TextInput::make('image_value')
+                        ->visible(fn($record): bool => $record->key === 'seo_image')
+                        ->label('القيمة')
+                        ->url()
+                        ->required(),
+
+                    // seo_title, seo_description, seo_keywords: {"ar": "...", "en": "..."} → translations
+                    KeyValue::make('translation_value')
+                        ->visible(fn($record): bool => in_array($record->key, ['seo_title', 'seo_description', 'seo_keywords']))
                         ->label('القيمة')
                         ->required()
                         ->columns(2),
-                        Repeater::make('value')
+
+                    // adjust_links: [{"key": "...", "value": "..."}] → repeater
+                    Repeater::make('links_value')
                         ->visible(fn($record): bool => $record->key === 'adjust_links')
                         ->label('روابط التطبيق')
                         ->schema([
@@ -30,7 +49,7 @@ class SettingForm
                             TextInput::make('value')
                                 ->label('الرابط')
                                 ->required(),
-                        ])
+                        ]),
                 ])
             ])->columns(1);
     }
