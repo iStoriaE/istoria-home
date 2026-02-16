@@ -19,13 +19,13 @@ class GitHubWebhookService
         $astro_sa_response = Http::withToken($token)
             ->withHeaders(['Accept' => 'application/vnd.github+json'])
             ->post("https://api.github.com/repos/iStoriaE/istoria-astro-sa/dispatches", [
-                'event_type' => 'content-updated',
+                'event_type' => 'filament_update',
             ]);
         
         $onboarding_response = Http::withToken($token)
             ->withHeaders(['Accept' => 'application/vnd.github+json'])
             ->post("https://api.github.com/repos/iStoriaE/istoria-onboarding/dispatches", [
-                'event_type' => 'content-updated',
+                'event_type' => 'filament_update',
             ]);
 
         return $astro_sa_response->status() === 204 && $onboarding_response->status() === 204;
