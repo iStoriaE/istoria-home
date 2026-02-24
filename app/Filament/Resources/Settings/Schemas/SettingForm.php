@@ -24,16 +24,22 @@ class SettingForm
                         ->maxValue(5)
                         ->required(),
 
-                    // seo_image: ["url"] → single URL value
+                    // seo_image, twitter_image: ["url"] → single URL value
                     TextInput::make('image_value')
-                        ->visible(fn($record): bool => $record->key === 'seo_image')
+                        ->visible(fn($record): bool => in_array($record->key, ['seo_image', 'twitter_image']))
                         ->label('القيمة')
                         ->url()
                         ->required(),
 
-                    // seo_title, seo_description, seo_keywords: {"ar": "...", "en": "..."} → translations
+                    // twitter_site, twitter_creator: ["@handle"] → plain text
+                    TextInput::make('text_value')
+                        ->visible(fn($record): bool => in_array($record->key, ['twitter_site', 'twitter_creator']))
+                        ->label('القيمة')
+                        ->required(),
+
+                    // seo_title, seo_description, seo_keywords, twitter_title, twitter_description: {"ar": "...", "en": "..."} → translations
                     KeyValue::make('translation_value')
-                        ->visible(fn($record): bool => in_array($record->key, ['seo_title', 'seo_description', 'seo_keywords']))
+                        ->visible(fn($record): bool => in_array($record->key, ['seo_title', 'seo_description', 'seo_keywords', 'twitter_title', 'twitter_description']))
                         ->label('القيمة')
                         ->required()
                         ->columns(2),

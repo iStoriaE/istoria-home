@@ -113,6 +113,46 @@ class DatabaseSeeder extends Seeder
              'created_at' => now(),
          ]);
 
+         Setting::query()->updateOrCreate(['key'=>'twitter_title'],[
+             'key' => 'twitter_title',
+             'title' => 'عنوان تويتر',
+             'description' => 'عنوان بطاقة تويتر لكل لغة',
+             'value' => [],
+             'created_at' => now(),
+         ]);
+
+         Setting::query()->updateOrCreate(['key'=>'twitter_description'],[
+             'key' => 'twitter_description',
+             'title' => 'وصف تويتر',
+             'description' => 'وصف بطاقة تويتر لكل لغة',
+             'value' => [],
+             'created_at' => now(),
+         ]);
+
+         Setting::query()->updateOrCreate(['key'=>'twitter_image'],[
+             'key' => 'twitter_image',
+             'title' => 'صورة تويتر',
+             'description' => 'صورة بطاقة تويتر',
+             'value' => [],
+             'created_at' => now(),
+         ]);
+
+         Setting::query()->updateOrCreate(['key'=>'twitter_site'],[
+             'key' => 'twitter_site',
+             'title' => 'حساب تويتر للموقع',
+             'description' => 'حساب تويتر/X للموقع (مثال: @iStoriaSA)',
+             'value' => [],
+             'created_at' => now(),
+         ]);
+
+         Setting::query()->updateOrCreate(['key'=>'twitter_creator'],[
+             'key' => 'twitter_creator',
+             'title' => 'حساب تويتر للمنشئ',
+             'description' => 'حساب تويتر/X لمنشئ المحتوى (مثال: @iStoriaSA)',
+             'value' => [],
+             'created_at' => now(),
+         ]);
+
          Setting::query()->updateOrCreate(['key'=>'adjust_links'],[
              'key' => 'adjust_links',
              'title' => 'روابط التطبيق',

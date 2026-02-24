@@ -24,8 +24,9 @@ class EditSetting extends EditRecord
 
         match ($data['key']) {
             'general_rating' => $data['rating_value'] = $value[0] ?? null,
-            'seo_image' => $data['image_value'] = $value[0] ?? null,
-            'seo_title', 'seo_description', 'seo_keywords' => $data['translation_value'] = $value,
+            'seo_image', 'twitter_image' => $data['image_value'] = $value[0] ?? null,
+            'twitter_site', 'twitter_creator' => $data['text_value'] = $value[0] ?? null,
+            'seo_title', 'seo_description', 'seo_keywords', 'twitter_title', 'twitter_description' => $data['translation_value'] = $value,
             'adjust_links' => $data['links_value'] = $value,
             default => null,
         };
@@ -39,13 +40,14 @@ class EditSetting extends EditRecord
 
         $data['value'] = match ($key) {
             'general_rating' => [(float) $data['rating_value']],
-            'seo_image' => [$data['image_value']],
-            'seo_title', 'seo_description', 'seo_keywords' => $data['translation_value'],
+            'seo_image', 'twitter_image' => [$data['image_value']],
+            'twitter_site', 'twitter_creator' => [$data['text_value']],
+            'seo_title', 'seo_description', 'seo_keywords', 'twitter_title', 'twitter_description' => $data['translation_value'],
             'adjust_links' => $data['links_value'],
             default => $data['value'] ?? [],
         };
 
-        unset($data['rating_value'], $data['image_value'], $data['translation_value'], $data['links_value']);
+        unset($data['rating_value'], $data['image_value'], $data['text_value'], $data['translation_value'], $data['links_value']);
 
         return $data;
     }
