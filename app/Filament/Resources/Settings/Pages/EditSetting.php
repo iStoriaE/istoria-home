@@ -43,7 +43,7 @@ class EditSetting extends EditRecord
             'seo_image', 'twitter_image' => [$data['image_value']],
             'twitter_site', 'twitter_creator' => [$data['text_value']],
             'seo_title', 'seo_description', 'seo_keywords', 'twitter_title', 'twitter_description' => $data['translation_value'],
-            'adjust_links' => $data['links_value'],
+            'adjust_links' => array_values($data['links_value']),
             default => $data['value'] ?? [],
         };
 
