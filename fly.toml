@@ -1,0 +1,62 @@
+# fly.io config for admin.istoria.sa (the content panel and API behind istoria.sa).
+# Deployed by .github/workflows/fly-deploy.yml on every push to master.
+# Secrets (APP_KEY, OPENAI_ASSISTANT_ID) live in `fly secrets`.
+
+app = 'istoria-admin-sa'
+primary_region = 'fra'
+console_command = 'php /var/www/html/artisan tinker'
+
+[build]
+  [build.args]
+    NODE_VERSION = '24'
+    PHP_VERSION = '8.4'
+    VITE_APP_NAME = 'iStoria'
+
+# No [deploy] release_command: migrations are run by hand.
+
+[env]
+  APP_NAME = 'iStoria'
+  APP_ENV = 'production'
+  APP_DEBUG = 'false'
+  APP_URL = 'https://istoria.sa'
+  APP_LOCALE = 'en'
+  LOG_CHANNEL = 'stderr'
+  # SQLite on the volume below; sessions, cache and queue use it too.
+  DB_CONNECTION = 'sqlite'
+  DB_DATABASE = '/data/database.sqlite'
+  SESSION_DRIVER = 'database'
+  CACHE_STORE = 'database'
+  QUEUE_CONNECTION = 'database'
+  FILESYSTEM_DISK = 'local'
+  BROADCAST_CONNECTION = 'log'
+  MAIL_MAILER = 'log'
+  PHP_PM_MAX_CHILDREN = '5'
+  PHP_PM_START_SERVERS = '2'
+  PHP_MIN_SPARE_SERVERS = '1'
+  PHP_MAX_SPARE_SERVERS = '3'
+
+[[mounts]]
+  source = 'admin_data'
+  destination = '/data'
+  initial_size = '1gb'
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = 'suspend'
+  auto_start_machines = true
+  min_machines_running = 0
+
+  [[http_service.checks]]
+    method = 'GET'
+    path = '/up'
+    interval = '30s'
+    timeout = '5s'
+    grace_period = '30s'
+    [http_service.checks.headers]
+      X-Forwarded-Proto = 'https'
+
+[[vm]]
+  memory = '512mb'
+  cpu_kind = 'shared'
+  cpus = 1
